@@ -46,21 +46,21 @@ The default configure for the module is to launch the following:
 
 #### Public Subnets
 
-- - **PUBLIC_SUBNET_COUNT** - **_number_** - Number of **PUBLIC** subnets created - Default is **_3_**
-- - **PUBLIC_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PUBLIC** subnets created - Default is **_3_**
-- - **PUBLIC_SUBNET_NAME** - **_string_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_SubnetName-pub-count.index_**
+- **PUBLIC_SUBNET_COUNT** - **_number_** - Number of **PUBLIC** subnets created - Default is **_3_**
+- **PUBLIC_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PUBLIC** subnets created - Default is **_3_**
+- **PUBLIC_SUBNET_NAME** - **_string_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_SubnetName-pub-count.index_**
 
 #### Private Subnets
 
-- - **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
-- - **PRIVATE_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PRIVATE** subnets created - Default is **_3_**
-- - **PRIVATE_SUBNET_NAME** - **_string_** - Name tag for **PRIVATE** subnets created. Tag is **_SubnetName-priv-count.index_**
+- **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
+- **PRIVATE_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PRIVATE** subnets created - Default is **_3_**
+- **PRIVATE_SUBNET_NAME** - **_string_** - Name tag for **PRIVATE** subnets created. Tag is **_SubnetName-priv-count.index_**
 
-- - **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
-- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
+- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
 
 ### Internet Gateway
 
@@ -210,4 +210,5 @@ By Default, an EIP will automatically be created and associated with the NAT Gat
 By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of 'true' to 'false'.
 
 The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named .**_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
+
 
