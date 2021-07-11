@@ -38,7 +38,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
   **_IMPORTANT: Default value is set to "0.0.0.0/0" (all ips) to allow the module to run if creating only public or only private subnets. You must EXPLICITLY write your desired CIDR block for the code to properly run._**
 
-  **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
+  **_IMPORTANT:_** _The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._
 
 ##### Ex. Create 1 Public Subnet
 
