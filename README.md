@@ -35,6 +35,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 - **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created.
 - **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created.
+
   **_IMPORTANT: Default value is set to "0.0.0.0/0" (all ips) to allow the module to run if creating only public or only private subnets. You must EXPLICITLY write your desired CIDR block for the code to properly run._**
 
   **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
@@ -52,6 +53,7 @@ PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
 
 - **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.
 - **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created.
+
   **_IMPORTANT: Default value is set to "0.0.0.0/0" (all ips) to allow the module to run if creating only public or only private subnets. You must EXPLICITLY write your desired CIDR block for the code to properly run._**
 
   **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
