@@ -26,7 +26,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 ### VPC
 
 - **MAKE_CUSTOM_VPC** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!) so why would you do that :wink:)
-- **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC. 
+- **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC.
 - **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **_customvpc_**
 
 ### Subnets
@@ -34,13 +34,13 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 #### Public Subnets
 
 - **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created.
-- **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created. 
+- **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created.
 - **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**
 
 #### Private Subnets
 
 - **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.
-- **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created. 
+- **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created.
 - **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**
 
 ### Internet Gateway
@@ -59,18 +59,18 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 #### Private RT
 
-- - **MAKE_PRIVATE_RT** - **_(REQUIRED if making private subnets)_** - Makes a Private Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-private-RT_**
-    **_IMPORTANT: to enable hosts in a private subnet to access the Internet, you will either need to create a NAT Gateway (recommended), NAT Instance, or use one of the hosts in a public subnet as a Bastion(Jump) Host. If using a NAT Gateway, a route table with a route to the NAT Gateway must be created._**
+- **MAKE_PRIVATE_RT** - **_(REQUIRED if making private subnets)_** - Makes a Private Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-private-RT_**
+  **_IMPORTANT: to enable hosts in a private subnet to access the Internet, you will either need to create a NAT Gateway (recommended), NAT Instance, or use one of the hosts in a public subnet as a Bastion(Jump) Host. If using a NAT Gateway, a route table with a route to the NAT Gateway must be created._**
 
-- - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_(REQUIRED if making private subnets)_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
+- **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_(REQUIRED if making private subnets)_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
 
 ### NAT Gateway
 
-- - **MAKE_NAT_GW** - **_(OPTIONAL)_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is set to **_true_**. Default name is **_YourCustomVPCName-nat-gw_**
+- **MAKE_NAT_GW** - **_(OPTIONAL)_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is set to **_true_**. Default name is **_YourCustomVPCName-nat-gw_**
 
 ### Elastic IP (NAT)
 
-- - **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**
+- **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**
 
 ## Variable Usage
 
