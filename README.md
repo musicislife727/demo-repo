@@ -55,7 +55,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 - **MAKE_PUBLIC_RT** - **_(REQUIRED if making public subnets)_** - Makes a custom Public Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-public-RT_**
   **_IMPORTANT: to enable hosts in a public subnet to access the Internet, a route table with a route to the IGW is REQUIRED. If this resource is not created, the IGW will not be attached to any route table, and the hosts will not have Internet access._**
 
-- - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_(OPTIONAL)_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
+- **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_(OPTIONAL)_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
 
 #### Private RT
 
