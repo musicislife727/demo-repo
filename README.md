@@ -26,41 +26,41 @@ This module creates a VPC with a dynamic amount of public/private subnets determ
 
 The default configure for the module is to launch the following:
 
-- - **3 Public Subnets** - (each with 32 hosts)
-- - **3 Private Subnets** - (each with 32 hosts)
-- - **Public/Private Route** Tables - for the subnets
-- - **Subnet Associations** - respective to public/private route tables
-- - **Internet Gateway** - for the public subnet route table
-- - **Nat Gateway** - for internet connectivity for the private subnets
-- - **Elastic IP** - to be used with the NAT Gateway
+- **3 Public Subnets** - (each with 32 hosts)
+- **3 Private Subnets** - (each with 32 hosts)
+- **Public/Private Route** Tables - for the subnets
+- **Subnet Associations** - respective to public/private route tables
+- **Internet Gateway** - for the public subnet route table
+- **Nat Gateway** - for internet connectivity for the private subnets
+- **Elastic IP** - to be used with the NAT Gateway
 
 ## Variables
 
 ### VPC
 
-- - **MAKE_CUSTOM_VPC** - bool - Enables VPC to be created. Set this to FALSE to bypass resource
-- - **CUSTOM_VPC_CIDR_BLOCK** - string - CIDR block used for Custom VPC - Default is **_192.168.0.0/24_**
-- - **CUSTOM_VPC_NAME** - string - Name tag for Custom VPC - default is **_customvpc_**
+- **MAKE_CUSTOM_VPC** - **_bool_** - Enables VPC to be created. Set this to FALSE to bypass resource
+- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - CIDR block used for Custom VPC - Default is **_192.168.0.0/24_**
+- **CUSTOM_VPC_NAME** - **_string_** - Name tag for Custom VPC - default is **_customvpc_**
 
 ### Subnets
 
 #### Public Subnets
 
-- - **PUBLIC_SUBNET_COUNT** - number - Number of **PUBLIC** subnets created - Default is **_3_**
-- - **PUBLIC_SUBNET_CIDR** - list - CIDR ranges for each public subnet **PUBLIC** subnets created - Default is **_3_**
-- - **PUBLIC_SUBNET_NAME** - string - Name tag for **PUBLIC** subnet(s) created. Tag is **_SubnetName-pub-count.index_**
+- - **PUBLIC_SUBNET_COUNT** - **_number_** - Number of **PUBLIC** subnets created - Default is **_3_**
+- - **PUBLIC_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PUBLIC** subnets created - Default is **_3_**
+- - **PUBLIC_SUBNET_NAME** - **_string_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_SubnetName-pub-count.index_**
 
 #### Private Subnets
 
-- - **PRIVATE_SUBNET_COUNT** - number - Number of **PRIVATE** subnets created - Default is **_3_**
-- - **PRIVATE_SUBNET_CIDR** - list - CIDR ranges for each public subnet **PRIVATE** subnets created - Default is **_3_**
-- - **PRIVATE_SUBNET_NAME** - string - Name tag for **PRIVATE** subnets created. Tag is **_SubnetName-priv-count.index_**
+- - **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
+- - **PRIVATE_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PRIVATE** subnets created - Default is **_3_**
+- - **PRIVATE_SUBNET_NAME** - **_string_** - Name tag for **PRIVATE** subnets created. Tag is **_SubnetName-priv-count.index_**
 
-- - **PRIVATE_SUBNET_COUNT** - number - Number of **PRIVATE** subnets created - Default is **_3_**
-- - **CUSTOM_VPC_CIDR_BLOCK** - string - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - string - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - string - (each with 32 hosts)
-- - **CUSTOM_VPC_CIDR_BLOCK** - string - (each with 32 hosts)
+- - **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
+- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+- - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
 
 ### Internet Gateway
 
@@ -193,13 +193,13 @@ An Internet Gateway will automatically be created and the PUBLIC subnets will be
 
 A Route table will automatically be created with a route for the IGW. The custom public subnets will automatically be associated with this route table.
 
-The default CIDR block for the route to IGW is **_0.0.0.0/0_** (all ips). You can change this by modifying the vaule of the variable named 'CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4'.
+The default CIDR block for the route to IGW is **_0.0.0.0/0_** (all ips). You can change this by modifying the vaule of the variable named **_CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4_**.
 
 For a **PUBLIC RT**, the default name for the route table is **_YourCustomVPCName-public-RT._**For a **PRIVATE RT**, the default name for the route table is **_YourCustomVPCName-private-RT._**
 
 ## NAT Gateway
 
-By Default, a NAT Gateway will automatically be created and the PRIVATE subnets will be associated with it. Also, only ONE NAT Gateway will be created. To disable creation of the NAT Gateway, you must change the value of **_MAKE_NAT_GATEWAY_** from the default value of 'true' to 'false'. The default name for the NAT Gateway is **_YourCustomVPCName-nat-gw_**
+By Default, a NAT Gateway will automatically be created and the PRIVATE subnets will be associated with it. Also, only ONE NAT Gateway will be created. To disable creation of the NAT Gateway, you must change the value of **_MAKE_NAT_GATEWAY_** from the default value of **_true_** to **_false_**. The default name for the NAT Gateway is **_YourCustomVPCName-nat-gw_**
 
 ## Elastic IP (EIP)
 
@@ -209,4 +209,5 @@ By Default, an EIP will automatically be created and associated with the NAT Gat
 
 By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of 'true' to 'false'.
 
-The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named .**_USTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
+The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named .**_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
+
