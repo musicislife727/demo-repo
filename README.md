@@ -35,12 +35,34 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 - **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created.
 - **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created.
+  **_IMPORTANT: Default value is set to "0.0.0.0/0" (all ips) to allow the module to run if creating only public or only private subnets. You must EXPLICITLY write your desired CIDR block for the code to properly run._**
+
+  **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
+
+##### Ex. Create 1 Public Subnet
+
+```go
+PUBLIC_SUBNET_COUNT = 1
+PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
+```
+
 - **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**.
 
 #### Private Subnets
 
 - **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.
 - **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created.
+  **_IMPORTANT: Default value is set to "0.0.0.0/0" (all ips) to allow the module to run if creating only public or only private subnets. You must EXPLICITLY write your desired CIDR block for the code to properly run._**
+
+  **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
+
+##### Ex. Create 1 Private Subnet
+
+```go
+PRIVATE_SUBNET_COUNT = 1
+PRIVATE_SUBNET_CIDR = ["192.168.0.0/24"]
+```
+
 - **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**.
 
 ### Internet Gateway
