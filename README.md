@@ -17,7 +17,7 @@ This module can dynamically create PUBLIC subnets, PRIVATE subnets, a custom VPC
 
 The default configuration for the module is to launch the following:
 
-- **Custom VPC** - with your specified CIDR range. Default name is **_customvpc_**
+- **Custom VPC** - with your specified CIDR range. Default name is **_customvpc_**.
 
 Every other resource and the amounts that you desire must be EXPLICITLY defined using the following variables:
 
