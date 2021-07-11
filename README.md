@@ -25,7 +25,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 ### VPC
 
-- **MAKE_CUSTOM_VPC** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!), so why would you do that :):wink:)
+- **MAKE_CUSTOM_VPC** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!), so why would you do that :wink:)
 - **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC. Must be set by the user
 - **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **customvpc**
 
