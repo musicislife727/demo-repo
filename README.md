@@ -61,32 +61,25 @@ The default configure for the module is to launch the following:
 - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
 - **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
 
-### Internet Gateway
-
-- - **PRIVATE_SUBNET_COUNT** - **_string_** - Name tag for IGW created - Default is **_customvpc-IGW_**
-
 ### Route Tables
 
 #### Public RT
 
-- - **CUSTOM_VPC_PUBLIC_RT_NAME** - **_string_** - Name tag for Public RT created. Default is **_customvpc-public-RT_**
 - - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
 
 #### Private RT
 
 - - **MAKE_PRIVATE_RT** - **_bool_** - Enables Private RT to be created. Set this to be false to ignore this. Default is **_true_**
-- - **CUSTOM_VPC_PRIVATE_RT_NAME** - **_string_** - Name tag for Private RT created. Default is **_customvpc-private-RT_**
+
 - - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
 
 ### Elastic IP (NAT)
 
 - - **MAKE_EIP** - **_bool_** - Enables EIP to be created. Set this to be false to ignore. Default is **_true_**
-- - **CUSTOM_VPC_NAT_EIP** - **_string_** - Name tag for EIP (associated with NAT GW) created - Default is **_customvpc--nat-eip_**
 
 ### NAT Gateway
 
 - - **MAKE_NAT_GW** - **_bool_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is **_true_**
-- - **CUSTOM_VPC_NAT_GW** - **_string_** - Name tag for NAT GW created. Default is **_customvpc-nat-gw_**
 
 ## Variable Usage
 
@@ -109,12 +102,12 @@ PRIVATE_SUBNET_NAME = "Togoro"
 ### Ex. 2 - Create 2 Public Subnets ONLY (no private subnets or related resources)
 
 ```go
-// VPC
+ // VPC
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
 // PUBLIC SUBNET(S)
 PUBLIC_SUBNET_COUNT = 2
-PUBLIC_SUBNET_CIDR = ["192.168.0.0/25", "192.168.128/2"]
+PUBLIC_SUBNET_CIDR = ["192.168.0.0/25", "192.168.0.128/25"]
 PUBLIC_SUBNET_NAME = "Kuwabara"
 // PRIVATE SUBNET(S)
 PRIVATE_SUBNET_COUNT = 0
@@ -184,6 +177,8 @@ When deciding on your CIDR ranges, keep in mind a few things:
 - CIDR ranges must not overlap
 - Beyond the **2** IPs reserved for **gateway** and **broadcast addresses**, AWS reserves 3 additional addresses, so **5 in total.**
 
+- **IMPORTANT!** If you have a NAT Gateway, it must be attached to a public subnet. The NAT gateway will use **_1_** of the available IP addresses. So, for a public subnet with a **_NAT Gatway_** attached to it, it will have 1 available IP address less than public subnets without a NAT Gateway attached.
+
 For more information, refer to the VPC FAQs on the AWS website.
 https://aws.amazon.com/vpc/faqs/#:~:text=Amazon%20reserves%20the%20first%20four,subnet%20for%20IP%20networking%20purposes.
 
@@ -193,7 +188,7 @@ An Internet Gateway will automatically be created and the PUBLIC subnets will be
 
 ## Route Table for Custom VPC (IGW Route for PUBLIC Subnets)
 
-A Route table will automatically be created with a route for the IGW. The custom public subnets will automatically be associated with this route table.
+By default, a custom Route table will automatically be created with a route for the IGW. The custom public subnets will automatically be associated with this route table. This is separate from the default route table that is provided by AWS with every new VPC creation.
 
 The default CIDR block for the route to IGW is **_0.0.0.0/0_** (all ips). You can change this by modifying the vaule of the variable named **_CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4_**.
 
@@ -209,6 +204,6 @@ By Default, an EIP will automatically be created and associated with the NAT Gat
 
 ## Route Table for Custom VPC (NAT Gateway for PRIVATE Subnets)
 
-By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of **_true_** to **_false_**.
+By default, a custom Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. This is separate from the default route table that is provided by AWS with every new VPC creation. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of **_true_** to **_false_**.
 
 The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named **_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
