@@ -27,7 +27,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 - **MAKE_CUSTOM_VPC** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!) so why would you do that :wink:)
 - **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC.
-- **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **_customvpc_**
+- **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **_customvpc_**.
 
 ### Subnets
 
@@ -35,46 +35,46 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 - **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created.
 - **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created.
-- **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**
+- **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**.
 
 #### Private Subnets
 
 - **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.
 - **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created.
-- **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**
+- **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**.
 
 ### Internet Gateway
 
-- **MAKE_IGW** - **_(REQUIRED if making public subnets)_** - Makes an Internet Gateway. Default is set to **FALSE**. Must set this to **TRUE** to create the resource. The name of the IGW will be **_YourCustomVPCName-igw_**
+- **MAKE_IGW** - **_(REQUIRED if making public subnets)_** - Makes an Internet Gateway. Default is set to **FALSE**. Must set this to **TRUE** to create the resource. The name of the IGW will be **_YourCustomVPCName-igw_**.
   **_Note: an IGW is REQUIRED for a subnet to be considered public._**
 
 ### Route Tables
 
 #### Public RT
 
-- **MAKE_PUBLIC_RT** - **_(REQUIRED if making public subnets)_** - Makes a custom Public Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-public-RT_**
+- **MAKE_PUBLIC_RT** - **_(REQUIRED if making public subnets)_** - Makes a custom Public Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-public-RT_**.
   **_IMPORTANT: to enable hosts in a public subnet to access the Internet, a route table with a route to the IGW is REQUIRED. If this resource is not created, the IGW will not be attached to any route table, and the hosts will not have Internet access._**
 
-- **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_(OPTIONAL)_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
+- **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_(OPTIONAL)_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**.
 
 #### Private RT
 
-- **MAKE_PRIVATE_RT** - **_(REQUIRED if making private subnets)_** - Makes a Private Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-private-RT_**
+- **MAKE_PRIVATE_RT** - **_(REQUIRED if making private subnets)_** - Makes a Private Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-private-RT_**.
   **_IMPORTANT: to enable hosts in a private subnet to access the Internet, you will either need to create a NAT Gateway (recommended), NAT Instance, or use one of the hosts in a public subnet as a Bastion(Jump) Host. If using a NAT Gateway, a route table with a route to the NAT Gateway must be created._**
 
-- **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_(REQUIRED if making private subnets)_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
+- **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_(REQUIRED if making private subnets)_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**.
 
 ### NAT Gateway
 
-- **MAKE_NAT_GW** - **_(OPTIONAL)_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is set to **_true_**. Default name is **_YourCustomVPCName-nat-gw_**
+- **MAKE_NAT_GW** - **_(OPTIONAL)_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is set to **_true_**. Default name is **_YourCustomVPCName-nat-gw_**.
 
 ### Elastic IP (NAT)
 
-- **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**
+- **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**.
 
 ## Variable Usage
 
-### Ex. 1 - Create 2 Public Subnets and 2 Private Subnets
+### Ex. 1 - Create 2 Public Subnets and 2 Private Subnets (IGW, NAT GW, EIP, and Public/Private Route Tables)
 
 ```go
 // VPC
@@ -88,6 +88,16 @@ PUBLIC_SUBNET_NAME = "Yusuke"
 PRIVATE_SUBNET_COUNT = 2
 PRIVATE_SUBNET_CIDR = ["192.168.0.128/26", "192.168.0.192/26"]
 PRIVATE_SUBNET_NAME = "Togoro"
+// IGW - Required since making Public Subnets
+MAKE_IGW = true
+// Public RT
+MAKE_PUBLIC_RT = true
+//Private RT
+MAKE_PRIVATE_RT = true
+//Optional NAT Gateway
+MAKE_NAT_GW = true
+//Optional EIP (Necessary if making NAT Gateway)
+MAKE_EIP = true
 ```
 
 ### Ex. 2 - Create 2 Public Subnets ONLY (no private subnets or related resources)
@@ -175,7 +185,7 @@ https://aws.amazon.com/vpc/faqs/#:~:text=Amazon%20reserves%20the%20first%20four,
 
 ## Internet Gateway
 
-An Internet Gateway will automatically be created and the PUBLIC subnets will be associated with it. The default name for the Internet Gateway is **_YourCustomVPCName-igw._**
+An Internet Gateway will automatically be created and the PUBLIC subnets will be associated with it. The default name for the Internet Gateway is **_YourCustomVPCName-igw_**.
 
 ## Route Table for Custom VPC (IGW Route for PUBLIC Subnets)
 
@@ -183,7 +193,7 @@ By default, a custom Route table will automatically be created with a route for 
 
 The default CIDR block for the route to IGW is **_0.0.0.0/0_** (all ips). You can change this by modifying the vaule of the variable named **_CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4_**.
 
-For a **PUBLIC RT**, the default name for the route table is **_YourCustomVPCName-public-RT._**For a **PRIVATE RT**, the default name for the route table is **_YourCustomVPCName-private-RT._**
+For a **PUBLIC RT**, the default name for the route table is **_YourCustomVPCName-public-RT._**For a **PRIVATE RT**, the default name for the route table is **_YourCustomVPCName-private-RT_**.
 
 ## NAT Gateway
 
