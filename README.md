@@ -8,7 +8,7 @@ Subheader text
 
 <!-- About The Module -->
 
-# VPC with Dynamic Subnets
+# Module - VPC with Dynamic Subnets (and more!)
 
 Created by: Kevon Mayers
 www.kevonmayers.com
@@ -63,30 +63,30 @@ The default configure for the module is to launch the following:
 
 ### Internet Gateway
 
-- - **PRIVATE_SUBNET_COUNT** - string - Name tag for IGW created - Default is **_customvpc-IGW_**
+- - **PRIVATE_SUBNET_COUNT** - **_string_** - Name tag for IGW created - Default is **_customvpc-IGW_**
 
 ### Route Tables
 
 #### Public RT
 
-- - **CUSTOM_VPC_PUBLIC_RT_NAME** - string - Name tag for Public RT created. Default is **_customvpc-public-RT_**
-- - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - string - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
+- - **CUSTOM_VPC_PUBLIC_RT_NAME** - **_string_** - Name tag for Public RT created. Default is **_customvpc-public-RT_**
+- - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
 
 #### Private RT
 
-- - **MAKE_PRIVATE_RT** - bool - Enables Private RT to be created. Set this to be false to ignore this. Default is **_true_**
-- - **CUSTOM_VPC_PRIVATE_RT_NAME** - string - Name tag for Private RT created. Default is **_customvpc-private-RT_**
-- - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - string - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
+- - **MAKE_PRIVATE_RT** - **_bool_** - Enables Private RT to be created. Set this to be false to ignore this. Default is **_true_**
+- - **CUSTOM_VPC_PRIVATE_RT_NAME** - **_string_** - Name tag for Private RT created. Default is **_customvpc-private-RT_**
+- - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
 
 ### Elastic IP (NAT)
 
-- - **MAKE_EIP** - bool - Enables EIP to be created. Set this to be false to ignore. Default is **_true_**
-- - **CUSTOM_VPC_NAT_EIP** - string - Name tag for EIP (associated with NAT GW) created - Default is **_customvpc--nat-eip_**
+- - **MAKE_EIP** - **_bool_** - Enables EIP to be created. Set this to be false to ignore. Default is **_true_**
+- - **CUSTOM_VPC_NAT_EIP** - **_string_** - Name tag for EIP (associated with NAT GW) created - Default is **_customvpc--nat-eip_**
 
 ### NAT Gateway
 
-- - **MAKE_NAT_GW** - bool - Enables NAT Gateway to be created. Set this to be false to ignore. Default is **_true_**
-- - **CUSTOM_VPC_NAT_GW** - string - Name tag for NAT GW created. Default is **_customvpc-nat-gw_**
+- - **MAKE_NAT_GW** - **_bool_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is **_true_**
+- - **CUSTOM_VPC_NAT_GW** - **_string_** - Name tag for NAT GW created. Default is **_customvpc-nat-gw_**
 
 ## Variable Usage
 
@@ -212,6 +212,3 @@ By Default, an EIP will automatically be created and associated with the NAT Gat
 By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of 'true' to 'false'.
 
 The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named .**_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
-
-
-
