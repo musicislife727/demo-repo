@@ -39,7 +39,7 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
   **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
 
-#### Ex. Create 1 Public Subnet
+##### Ex. Create 1 Public Subnet
 
 ```go
 PUBLIC_SUBNET_COUNT = 1
@@ -56,7 +56,7 @@ PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
 
   **_IMPORTANT: The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._**
 
-#### Ex. Create 1 Private Subnet
+##### Ex. Create 1 Private Subnet
 
 ```go
 PRIVATE_SUBNET_COUNT = 1
