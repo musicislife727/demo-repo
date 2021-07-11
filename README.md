@@ -213,8 +213,9 @@ Assumming you selected non-overlapping CIDR blocks, the following will be create
 - 5th Public Subnet: AZ - us-east-1e
 - 6th Public Subnet: AZ - us-east-1f
 
-For more information refer to Terraform's documentation on the element() function.
+For more information, refer to Terraform's documentation on the **element()** function and the **count** Meta-Argument.
 https://www.terraform.io/docs/language/functions/element.html
+https://www.terraform.io/docs/language/meta-arguments/count.html
 
 Ex. AWS_REGION = "us-east-1" (This region has 6 AZs)
 PUBLIC_SUBNET_COUNT = 6
