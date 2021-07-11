@@ -72,7 +72,8 @@ module "vpc-dynamic-subnets"{
 
 ##### Ex. Create 1 Private Subnet (EIP, NAT GW)
 
-```go
+```terraform
+module "vpc-dynamic-subnets"{
  source = "./modules/vpc-dynamic-subnets" //location of the module
  // VPC
  CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
@@ -93,6 +94,7 @@ module "vpc-dynamic-subnets"{
  // Public RT
  MAKE_PUBLIC_RT = true
  MAKE_PRIVATE_RT = true
+}
 ```
 
 - **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**.
@@ -130,7 +132,8 @@ module "vpc-dynamic-subnets"{
 
 ### Ex. 1 - Create 2 Public Subnets and 2 Private Subnets (IGW, NAT GW, EIP, and Public/Private Route Tables)
 
-```go
+```terraform
+module "vpc-dynamic-subnets"{
 // VPC
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
@@ -152,11 +155,13 @@ MAKE_PRIVATE_RT = true
 MAKE_NAT_GW = true
 //Optional EIP (Necessary if making NAT Gateway)
 MAKE_EIP = true
+}
 ```
 
 ### Ex. 2 - Create 2 Public Subnets ONLY (no private subnets or related resources)
 
-```go
+```terraform
+module "vpc-dynamic-subnets"{
  // VPC
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
@@ -169,6 +174,7 @@ PRIVATE_SUBNET_COUNT = 0
 MAKE_PRIVATE_RT = false
 MAKE_EIP = false
 MAKE_NAT_GW = false
+}
 ```
 
 ## Availability Zone Functionality
