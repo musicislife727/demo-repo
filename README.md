@@ -101,7 +101,7 @@ PUBLIC_SUBNET_COUNT = 2
 PUBLIC_SUBNET_CIDR = ["192.168.0.0/24", "192.168.64/26"]
 PUBLIC_SUBNET_NAME = "Yusuke"
 // PRIVATE SUBNET(S)
-PRIVATE_SUBNET_COUNT = 2;
+PRIVATE_SUBNET_COUNT = 2
 PRIVATE_SUBNET_CIDR = ["192.168.0.128/24", "192.168.192/26"]
 PRIVATE_SUBNET_NAME = "Togoro"
 ```
@@ -113,7 +113,7 @@ PRIVATE_SUBNET_NAME = "Togoro"
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
 // PUBLIC SUBNET(S)
-PUBLIC_SUBNET_COUNT = 2;
+PUBLIC_SUBNET_COUNT = 2
 PUBLIC_SUBNET_CIDR = ["192.168.0.0/25", "192.168.128/2"]
 PUBLIC_SUBNET_NAME = "Kuwabara"
 // PRIVATE SUBNET(S)
@@ -132,7 +132,7 @@ The AZ for each subnet is dynamically set using Terraform's **_data source_** fe
 ### Ex. 1 AWS_REGION = "us-east-2" (This region has 3 AZs)
 
 ```go
-PUBLIC_SUBNET_COUNT = 4;
+PUBLIC_SUBNET_COUNT = 4
 ```
 
 Assumming you selected non-overlapping CIDR blocks, the following will be created:
@@ -145,7 +145,7 @@ Assumming you selected non-overlapping CIDR blocks, the following will be create
 ### Ex. 2 AWS_REGION = "us-east-1" (This region has 6 AZs)
 
 ```go
-PUBLIC_SUBNET_COUNT = 6;
+PUBLIC_SUBNET_COUNT = 6
 ```
 
 Assumming you selected non-overlapping CIDR blocks, the following will be created:
@@ -205,11 +205,10 @@ By Default, a NAT Gateway will automatically be created and the PRIVATE subnets 
 
 ## Elastic IP (EIP)
 
-By Default, an EIP will automatically be created and associated with the NAT Gateway. To disable creation of the eip you must change the value of **_MAKE_EIP_** from the default of 'true' to 'false'. The default name for the NAT Gateway is **_YourCustomVPCName-nat-eip_**
+By Default, an EIP will automatically be created and associated with the NAT Gateway. To disable creation of the eip you must change the value of **_MAKE_EIP_** from the default of **_true_** to **_false_**. The default name for the NAT Gateway is **_YourCustomVPCName-nat-eip_**
 
 ## Route Table for Custom VPC (NAT Gateway for PRIVATE Subnets)
 
-By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of 'true' to 'false'.
+By Default, a Route table will automatically be created with a route for the NAT Gateway. The custom private subnets will automatically be associated with this route table. To disable creation of the route table for the PRIVATE subnets, you must change the value of **_MAKE_PRIVATE_RT_** from the default value of **_true_** to **_false_**.
 
-The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named .**_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
-
+The default CIDR block for the route to NAT Gateway is 0.0.0.0/0 (all ips). You can change this by modifying the vaule of the variable named **_CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4_**.
