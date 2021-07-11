@@ -42,9 +42,21 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 
 ##### Ex. Create 1 Public Subnet
 
-```go
-PUBLIC_SUBNET_COUNT = 1
-PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
+```terraform
+module "vpc-dynamic-subnets"{
+ source = "./modules/vpc-dynamic-subnets" //location of the module
+ // VPC
+ CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
+ CUSTOM_VPC_NAME = "My_Custom_VPC"
+ // PUBLIC SUBNET(S)
+ PUBLIC_SUBNET_COUNT = 1
+ PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
+ PUBLIC_SUBNET_NAME = "Kuwabara"
+ // IGW - Required since making Public Subnets
+ MAKE_IGW = true
+ // Public RT
+ MAKE_PUBLIC_RT = true
+}
 ```
 
 - **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**.
@@ -58,11 +70,29 @@ PUBLIC_SUBNET_CIDR = ["192.168.0.0/24"]
 
   **IMPORTANT:** _The module evaluates the subnet CIDR block(s) as a list(array) multiple strings. Even if specifying only one CIDR block for one subnet, you must enclose your value in brackets for the code to properly run._
 
-##### Ex. Create 1 Private Subnet
+##### Ex. Create 1 Private Subnet (EIP, NAT GW)
 
 ```go
-PRIVATE_SUBNET_COUNT = 1
-PRIVATE_SUBNET_CIDR = ["192.168.0.0/24"]
+ source = "./modules/vpc-dynamic-subnets" //location of the module
+ // VPC
+ CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
+ CUSTOM_VPC_NAME = "My_Custom_VPC"
+ // PUBLIC SUBNET - Necessary for NAT Gateway to be associated with
+ PUBLIC_SUBNET_COUNT = 1
+ PUBLIC_SUBNET_CIDR = ["192.168.0.0/25"]
+ PUBLIC_SUBNET_NAME = "Sora"
+ PRIVATE_SUBNET_COUNT = 1
+ PRIVATE_SUBNET_CIDR = ["192.168.0.128/25"]
+ PRIVATE_SUBNET_NAME = "Hei"
+ // IGW - Required since making Public Subnet (used by NAT Instance)
+ MAKE_IGW = true
+ // NAT GW - Used by hosts deployed in Private Subnet
+ MAKE_NAT_GW = true
+ // EIP - Used by NAT Gateway
+ MAKE_EIP = true
+ // Public RT
+ MAKE_PUBLIC_RT = true
+ MAKE_PRIVATE_RT = true
 ```
 
 - **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**.
