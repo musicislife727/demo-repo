@@ -17,69 +17,68 @@ Version 1.0.0
 
 ## About
 
-This module can dynamically create public subnets, private subnets, a vpc, internet gateway, nat gateway, elastic ip, route tables, and subnet associations. The module uses Terraform's **_data source_** feature to fetch all AZs in whichever region you set in your provider block. The subnets are then created from those AZs, mapped one-to-one starting from the first AZ in a region.
+This module can dynamically create public subnets, private subnets, a vpc, internet gateway, nat gateway, elastic ip, route tables, subnet associations, a load balancer (alb, nlb, or both) and an auto scaling group. The module uses Terraform's **_data source_** feature to fetch all AZs in whichever region you set in your provider block in your main.tf file. The subnets are then created from those AZs, mapped one-to-one starting from the first AZ in a region.
 
-This module creates a VPC with a dynamic amount of public/private subnets determined by the values of the variables 'PUBLIC_SUBNET_COUNT' and 'PRIVATE_SUBNET_COUNT
+<!-- This module creates a VPC with a dynamic amount of public/private subnets determined by the values of the variables 'PUBLIC_SUBNET_COUNT' and 'PRIVATE_SUBNET_COUNT -->
 
 ## Default Configuration
 
 The default configure for the module is to launch the following:
 
-- **3 Public Subnets** - (each with 32 hosts)
-- **3 Private Subnets** - (each with 32 hosts)
-- **Public/Private Route** Tables - for the subnets
-- **Subnet Associations** - respective to public/private route tables
-- **Internet Gateway** - for the public subnet route table
-- **Nat Gateway** - for internet connectivity for the private subnets
-- **Elastic IP** - to be used with the NAT Gateway
+- **Custom VPC** - with your specified CIDR range. Default name is **customvpc**.
+
+Every other resource and the amounts that you desire must be EXPLICITLY defined using the following variables.
 
 ## Variables
 
 ### VPC
 
-- **MAKE_CUSTOM_VPC** - **_bool_** - Enables VPC to be created. Set this to FALSE to bypass resource
-- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - CIDR block used for Custom VPC - Default is **_192.168.0.0/24_**
-- **CUSTOM_VPC_NAME** - **_string_** - Name tag for Custom VPC - default is **_customvpc_**
+- **MAKE_CUSTOM_VPC** - **_bool_** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!), so why would you do that :):wink:)
+- **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC. Must be set by the user
+- **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **customvpc**
 
 ### Subnets
 
 #### Public Subnets
 
-- **PUBLIC_SUBNET_COUNT** - **_number_** - Number of **PUBLIC** subnets created - Default is **_3_**
-- **PUBLIC_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PUBLIC** subnets created - Default is **_3_**
-- **PUBLIC_SUBNET_NAME** - **_string_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_SubnetName-pub-count.index_**
+- **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created. Must be set by the user
+- **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created. Must be set by the user
+- **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**
 
 #### Private Subnets
 
-- **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
-- **PRIVATE_SUBNET_CIDR** - **_list_** - CIDR ranges for each public subnet **PRIVATE** subnets created - Default is **_3_**
-- **PRIVATE_SUBNET_NAME** - **_string_** - Name tag for **PRIVATE** subnets created. Tag is **_SubnetName-priv-count.index_**
+- **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.Must be set by the user
+- **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created. Must be set by the user
+- **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**
 
-- **PRIVATE_SUBNET_COUNT** - **_number_** - Number of **PRIVATE** subnets created - Default is **_3_**
-- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
-- **CUSTOM_VPC_CIDR_BLOCK** - **_string_** - (each with 32 hosts)
+### Internet Gateway
+
+- **MAKE_IGW** - **_(REQUIRED if making public subnets)_** - Makes an Internet Gateway. Default is set to **FALSE**. Must set this to **TRUE** to create the resource. The name of the IGW will be **_YourCustomVPCName-igw_**
+  **_Note: an IGW is REQUIRED for a subnet to be considered public._**
 
 ### Route Tables
 
 #### Public RT
 
-- - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
+- **MAKE_PUBLIC_RT** - **_(REQUIRED if making public subnets)_** - Makes a custom Public Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-public-RT_**
+  **_IMPORTANT: to enable hosts in a public subnet to access the Internet, a route table with a route to the IGW is REQUIRED. If this resource is not created, the IGW will not be attached to any route table, and the hosts will not have Internet access._**
+
+- - **CUSTOM_VPC_PUBLIC_RT_CIDR_IPV4** - **_(OPTIONAL)_** - CIDR ranges for the Public RT created. Default is **_0.0.0.0/0_**
 
 #### Private RT
 
-- - **MAKE_PRIVATE_RT** - **_bool_** - Enables Private RT to be created. Set this to be false to ignore this. Default is **_true_**
+- - **MAKE_PRIVATE_RT** - **_(REQUIRED if making private subnets)_** - Makes a Private Route Table. Default is set **FALSE**. Must set this to **TRUE** to create the resource. Default name is **_YourCustomVPCNAME-private-RT_**
+    **_IMPORTANT: to enable hosts in a private subnet to access the Internet, you will either need to create a NAT Gateway (recommended), NAT Instance, or use one of the hosts in a public subnet as a Bastion(Jump) Host. If using a NAT Gateway, a route table with a route to the NAT Gateway must be created._**
 
-- - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_string_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
-
-### Elastic IP (NAT)
-
-- - **MAKE_EIP** - **_bool_** - Enables EIP to be created. Set this to be false to ignore. Default is **_true_**
+- - **CUSTOM_VPC_PRIVATE_RT_CIDR_IPV4** - **_(REQUIRED if making private subnets)_** - CIDR ranges for the Private RT created. Default is **_0.0.0.0/0_**
 
 ### NAT Gateway
 
-- - **MAKE_NAT_GW** - **_bool_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is **_true_**
+- - **MAKE_NAT_GW** - **_(OPTIONAL)_** - Enables NAT Gateway to be created. Set this to be false to ignore. Default is set to **_true_**. Default name is **_YourCustomVPCName-nat-gw_**
+
+### Elastic IP (NAT)
+
+- - **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**
 
 ## Variable Usage
 
