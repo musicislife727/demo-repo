@@ -1,11 +1,3 @@
-# Demo
-
-Some description!
-
-## Subheader
-
-Subheader text
-
 <!-- About The Module -->
 
 # Module - VPC with Dynamic Subnets (and more!)
@@ -17,15 +9,15 @@ Version 1.0.0
 
 ## About
 
-This module can dynamically create public subnets, private subnets, a vpc, internet gateway, nat gateway, elastic ip, route tables, subnet associations, a load balancer (alb, nlb, or both) and an auto scaling group. The module uses Terraform's **_data source_** feature to fetch all AZs in whichever region you set in your provider block in your main.tf file. The subnets are then created from those AZs, mapped one-to-one starting from the first AZ in a region.
+This module can dynamically create PUBLIC subnets, PRIVATE subnets, a custom VPC, Internet Gateway, NAT Gateway, Elastic IP (EIP), Route Tables, Subnet Associations, a Load Balancer (ALB, NLB, or both) and an Auto Scaling Group. The module uses Terraform's **_data source_** feature to fetch all AZs in whichever region you set in your provider block in your **main.tf** file. The subnets are then created from those AZs, mapped one-to-one starting from the first AZ in a region.
 
 <!-- This module creates a VPC with a dynamic amount of public/private subnets determined by the values of the variables 'PUBLIC_SUBNET_COUNT' and 'PRIVATE_SUBNET_COUNT -->
 
 ## Default Configuration
 
-The default configure for the module is to launch the following:
+The default configuration for the module is to launch the following:
 
-- **Custom VPC** - with your specified CIDR range. Default name is **customvpc**.
+- **Custom VPC** - with your specified CIDR range. Default name is **customvpc**
 
 Every other resource and the amounts that you desire must be EXPLICITLY defined using the following variables.
 
