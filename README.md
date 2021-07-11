@@ -128,7 +128,7 @@ module "vpc-dynamic-subnets"{
 
 - **MAKE_EIP** - **_(REQUIRED if making a NAT Gateway)_** - Enables EIP to be created. Default is **FALSE**. Must set this to **TRUE** to create resource. Default name is **_YourCustomVPCName-nat-eip_**.
 
-## -Variable Usage Examples-
+## Variable Usage Examples
 
 ### Ex. 1 - Create 2 Public Subnets and 2 Private Subnets (IGW, NAT GW, EIP, and Public/Private Route Tables)
 
