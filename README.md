@@ -185,6 +185,9 @@ When deciding on your CIDR ranges, keep in mind a few things:
 - CIDR ranges must not overlap
 - Beyond the **2** IPs reserved for **gateway** and **broadcast addresses**, AWS reserves 3 additional addresses, so **5 in total.**
 
+For more information, refer to the VPC FAQs on the AWS website.
+https://aws.amazon.com/vpc/faqs/#:~:text=Amazon%20reserves%20the%20first%20four,subnet%20for%20IP%20networking%20purposes.
+
 ## Internet Gateway
 
 An Internet Gateway will automatically be created and the PUBLIC subnets will be associated with it. The default name for the Internet Gateway is **_YourCustomVPCName-igw._**
