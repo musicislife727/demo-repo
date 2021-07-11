@@ -134,6 +134,7 @@ module "vpc-dynamic-subnets"{
 
 ```terraform
 module "vpc-dynamic-subnets"{
+source = "./modules/vpc-dynamic-subnets" //location of the module
 // VPC
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
@@ -162,6 +163,7 @@ MAKE_EIP = true
 
 ```terraform
 module "vpc-dynamic-subnets"{
+source = "./modules/vpc-dynamic-subnets" //location of the module
  // VPC
 CUSTOM_VPC_CIDR_BLOCK = "192.168.0.0/24"
 CUSTOM_VPC_NAME = "My_Custom_VPC"
@@ -185,7 +187,7 @@ The AZ for each subnet is dynamically set using Terraform's **_data source_** fe
 
 ### Ex. 1 AWS_REGION = "us-east-2" (This region has 3 AZs)
 
-```go
+```terraform
 PUBLIC_SUBNET_COUNT = 4
 ```
 
@@ -198,7 +200,7 @@ Assumming you selected non-overlapping CIDR blocks, the following will be create
 
 ### Ex. 2 AWS_REGION = "us-east-1" (This region has 6 AZs)
 
-```go
+```terraform
 PUBLIC_SUBNET_COUNT = 6
 ```
 
@@ -223,7 +225,7 @@ PUBLIC_SUBNET_COUNT = 6
 
 The default configuration deploys 6 subnets, 3 public and 3 private. The default values are as follows:
 
-```go
+```terraform
 PUBLIC_SUBNET_COUNT = 3
 PUBLIC_SUBNET_CIDR = ["192.168.0.0/27","192.168.0.32/27","192.168.0.64/27"]
 PRIVATE_SUBNET_COUNT = 3
