@@ -26,21 +26,21 @@ Every other resource and the amounts that you desire must be EXPLICITLY defined 
 ### VPC
 
 - **MAKE_CUSTOM_VPC** - Enables VPC to be created. Default is **TRUE**. Set this to **FALSE** to bypass resource (but the point of this module is to make a custom VPC (and more!) so why would you do that :wink:)
-- **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC. Must be set by the user
-- **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **customvpc**
+- **CUSTOM_VPC_CIDR_BLOCK** - **_(REQUIRED)_** - CIDR block used for Custom VPC. 
+- **CUSTOM_VPC_NAME** - **_(OPTIONAL)_** - Name tag for Custom VPC - default is **_customvpc_**
 
 ### Subnets
 
 #### Public Subnets
 
-- **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created. Must be set by the user
-- **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created. Must be set by the user
+- **PUBLIC_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PUBLIC** subnets created.
+- **PUBLIC_SUBNET_CIDR** - **_(REQUIRED if making public subnets)_** - CIDR ranges for each **PUBLIC** subnet created. 
 - **PUBLIC_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PUBLIC** subnet(s) created. Tag is **_YourSubnetName-pub-(count.index)+1_** with the default being **_subnet-pub-(count.index)+1_**
 
 #### Private Subnets
 
-- **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.Must be set by the user
-- **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created. Must be set by the user
+- **PRIVATE_SUBNET_COUNT** - **_(OPTIONAL)_** - Number of **PRIVATE** subnets created.
+- **PRIVATE_SUBNET_CIDR** - **_(REQUIRED if making private subnets)_** - CIDR ranges for each **PRIVATE** subnet created. 
 - **PRIVATE_SUBNET_NAME** - **_(OPTIONAL)_** - Name tag for **PRIVATE** subnets created. Tag is **_YourSubnetName-priv-(count.index)+1_** with the default being **_subnet-priv-(count.index)+1_**
 
 ### Internet Gateway
